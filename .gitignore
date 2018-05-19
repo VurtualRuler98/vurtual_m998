@@ -1,0 +1,4 @@
+tga/*.tga
+addons/a3/*.rvmat
+addons/a3/*.bisurf
+*.blend1

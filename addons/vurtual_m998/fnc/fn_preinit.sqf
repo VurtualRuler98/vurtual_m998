@@ -1,0 +1,1 @@
+["vurtual_m998_fording_damage","CHECKBOX",["(M998) Enable extended fording damage","If checked, exceeding the safe fording depth or exceeding 20km/h fording will slowly damage the engine, and submerging the exhaust with the engine off will kill it. Disabled, only submerging the intake will kill the engine."],"Vurtual's Vehicles",false,true] call CBA_settings_fnc_init;

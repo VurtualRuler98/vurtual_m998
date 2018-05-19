@@ -1,0 +1,1 @@
+You can put .tga versions of the green HMMWV textures here for blender to use.
