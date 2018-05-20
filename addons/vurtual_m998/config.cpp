@@ -443,8 +443,9 @@ class CfgVehicles {
 				gunnerName = "Front passenger";
 				gunnerCompartments = "Compartment1";
 				ProxyIndex=1;
-				isPersonTurret = 1;
-				forceHideGunner = 0;
+				isPersonTurret = 2;
+				forceHideGunner = 1;
+				gunnerForceOptics=0;
 				maxElev = 45;
 				minElev = -45;
 				maxTurn = -30;
@@ -464,7 +465,8 @@ class CfgVehicles {
 				gunnerName = "Passenger (Tailgate Left)";
 				gunnerCompartments = "Compartment2";
 				proxyIndex = 9;
-				isPersonTurret = 1;
+				isPersonTurret = 2;
+				gunnerForceOptics=0;
 				forceHideGunner=1; //fixes being turned out in seat
 				maxElev = 75;
 				minElev = -30;

@@ -28,12 +28,15 @@ class cfgVehicles {
 		class Turrets: Turrets {
 			class mainTurret;
 			class CargoTurret_CoDriver;
+			class CargoTurret_Passenger_L;
+			class CargoTurret_Passenger_R;
 			class CargoTurret_Tailgate_L;
 			class CargoTurret_Tailgate_R;
 		};
 	};
 	class vurtual_gmv: vurtual_hmmwv_base_ecv {
 		driverAction = "vurtual_m998_Driver";
+		driverInAction = "vurtual_m998_Driver";
 		hideProxyInCombat = 1;
 		forceHideDriver = 1;
 		fuelCapacity = 95+56.7;
@@ -59,7 +62,7 @@ class cfgVehicles {
 			class GunnerTurnOut {
 				source = "door";
 				initPhase = 0;
-				animPeriod = 0.5;
+				animPeriod = 0.2;
 			};
 			class Seats_A1: Seats_A1{
 				displayName = "";
@@ -124,8 +127,8 @@ class cfgVehicles {
 				maxOutElev=45;
 				allowLauncherOut=1;
 				minOutElev=-20;
-				minOutTurn=-155;
-				maxOutTurn=155;
+				minOutTurn=-121;
+				maxOutTurn=179;
 				outGunnerMayFire=0;
 				isPersonTurret=1;
 				gunnerName = "Gunner (Mk19)";
@@ -198,7 +201,7 @@ class cfgVehicles {
 				class ViewOptics: ViewOptics {};
 				class ViewGunner: ViewOptics {};
 			};
-			class CargoTurret_Passenger_L: CargoTurret_CoDriver {
+			class CargoTurret_Passenger_L: CargoTurret_Passenger_L {
 				gunnerName = "Left passenger";
 				gunnerDoor = "door_left2";
 				proxyIndex = 2;
@@ -209,7 +212,7 @@ class cfgVehicles {
 				enabledByAnimationSource = "";
 				commanding=0;
 			};
-			class CargoTurret_Passenger_R: CargoTurret_CoDriver {
+			class CargoTurret_Passenger_R: CargoTurret_Passenger_R {
 				gunnerName = "Right passenger";
 				gunnerDoor = "door_right2";
 				proxyIndex = 3;
