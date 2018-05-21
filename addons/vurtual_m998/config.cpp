@@ -289,7 +289,7 @@ class CfgVehicles {
 		damperSize = 0.2;	// max. damper amplitude
 		damperForce = 1;	// larger number more stiffness dampers
 		damperDamping = 1;	// larger number less movement in dampers
-		armor = 150;
+		armor = 30;
 		armorStructural = 4;
 		turnCoef = 2.5;
 		steerAheadPlan = 0.2;
@@ -318,7 +318,9 @@ class CfgVehicles {
 		accuracy = 0.32;	// accuracy needed to recognize type of this target
 		
 		// threat (VSoft, VArmor, VAir), how threatening vehicle is to unit types
+		type = 0;
 		threat[] = {0, 0, 0};
+		//damageResistance=0;
 
 		driverLeftHandAnimName = "";
 		driverRightHandAnimName = "";
@@ -443,7 +445,8 @@ class CfgVehicles {
 				gunnerName = "Front passenger";
 				gunnerCompartments = "Compartment1";
 				ProxyIndex=1;
-				isPersonTurret = 2;
+				isPersonTurret = 1;
+				canHideGunner=0;
 				forceHideGunner = 1;
 				gunnerForceOptics=0;
 				maxElev = 45;
@@ -455,6 +458,7 @@ class CfgVehicles {
 				commanding = 1;
 				soundAttenuationTurret = "OpenCarAttenuation";
 				disableSoundAttenuation = 0;
+				class HitPoints {};
 			};
 			class CargoTurret_tailgate_L: CargoTurret {
 				gunnerDoor = "tailgate_fold";
@@ -465,7 +469,8 @@ class CfgVehicles {
 				gunnerName = "Passenger (Tailgate Left)";
 				gunnerCompartments = "Compartment2";
 				proxyIndex = 9;
-				isPersonTurret = 2;
+				isPersonTurret = 1;
+				canHideGunner=0;
 				gunnerForceOptics=0;
 				forceHideGunner=1; //fixes being turned out in seat
 				maxElev = 75;
@@ -474,6 +479,8 @@ class CfgVehicles {
 				minTurn = -95;
 				stabilizedInAxes=0;
 				commanding = 1; //fixes seat switching
+				class HitPoints {};
+
 			};
 			class CargoTurret_Tailgate_R: CargoTurret_Tailgate_L {
 				memoryPointsGetInGunner = "pos tailgate";
@@ -567,10 +574,53 @@ class CfgVehicles {
 				
 				"vurtual_m998\Data\hmmwv_details.rvmat",
 				"vurtual_m998\Data\hmmwv_details_damage.rvmat",
-				"vurtual_m998\Data\hmmwv_details_destruct.rvmat"
+				"vurtual_m998\Data\hmmwv_details_destruct.rvmat",
+				
+				"vurtual_m998\data\hmmwv_regular_1.rvmat",
+				"vurtual_m998\Data\hmmwv_body_damage.rvmat",
+				"vurtual_m998\Data\hmmwv_body_destruct.rvmat",
+				
+				"vurtual_m998\data\hmmwv_hood.rvmat",
+				"vurtual_m998\Data\hmmwv_body_damage.rvmat",
+				"vurtual_m998\Data\hmmwv_body_destruct.rvmat",
+				
+				"vurtual_m998\data\hmmwv_parts_1.rvmat",
+				"vurtual_m998\Data\hmmwv_body_damage.rvmat",
+				"vurtual_m998\Data\hmmwv_body_destruct.rvmat",
+				
+				"vurtual_m998\data\hmmwv_canvas.rvmat",
+				"vurtual_m998\Data\hmmwv_body_damage.rvmat",
+				"vurtual_m998\Data\hmmwv_body_destruct.rvmat",
+				
+				"vurtual_m998\data\hmmwv_canvas_1.rvmat",
+				"vurtual_m998\Data\hmmwv_body_damage.rvmat",
+				"vurtual_m998\Data\hmmwv_body_destruct.rvmat"
+			};
+		};/*
+		class DestructionEffects {
+			class Smoke1 {
+				simulation = "particles";
+				type = "ObjectDestructionSmokeSmall";
+				position = "SlingLoadCargo1"; //too lazy to add a new memory point for now
+				intensity=0.15;
+				interval=1;
+				lifeTime = 1;
+			};
+			class Smoke1_2: Smoke1 {
+				type = "ObjectDestructionSmoke1_2Small";
+				lifeTime = 0.15;
+				position = "destructionEffect1";
+			};
+			class Fire1 {
+				simulation = "particles";
+				type = "ObjectDestructionFire1Small";
+				position = "destructionEffect1";
+				interval=1;
+				lifetime=0.15;
+				intensity=0.15;
 			};
 		};
-		
+		fuelExplosionPower=0;*/
 		class Reflectors {
 			class LightCarHeadL01 {
 				color[] = {1900, 1800, 1700};

@@ -84,7 +84,7 @@ if (_veh isKindOf "vurtual_hmmwv_base") then {[_veh] call vurtual_m998_fnc_passe
 					if (!isEngineOn _veh && ((AGLToASL (_veh modelToWorld (_veh selectionPosition _fordingExhaust))) select 2 < 0) && ((AGLToASL (_veh modelToWorld (_veh selectionPosition _fordingExhaustKill))) select 2 < 0)) then {
 						_veh setHitPointDamage ["hitEngine",1];
 					};
-					if (((AGLToASL (_veh modelToWorld (_veh selectionPosition "fording_safe"))) select 2 < 0) && (abs speed _veh)>20) then {
+					if (((AGLToASL (_veh modelToWorld (_veh selectionPosition "fording_safe"))) select 2 < 0) && (abs speed _veh)>12) then {
 						_veh setHitPointDamage ["hitEngine",(_veh getHitPointDamage "hitEngine")+(0.0025*((abs speed _veh/80) min 1))];
 					};
 				};

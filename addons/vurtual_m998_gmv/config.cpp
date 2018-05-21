@@ -9,6 +9,7 @@ class CfgPatches {
 			"vurtual_m240_veh"
 		};
 		requiredVersion = 0.1;
+		author = "vurtual";
 		requiredAddons[] = {"cba_main","A3_Soft_F","vurtual_m998"};
 	};
 };
@@ -24,12 +25,11 @@ class cfgVehicles {
 			class seats_A1;
 			class door_hide;
 			class bedseat_fold;
+			class fordingkit_hide;
 		};
 		class Turrets: Turrets {
 			class mainTurret;
 			class CargoTurret_CoDriver;
-			class CargoTurret_Passenger_L;
-			class CargoTurret_Passenger_R;
 			class CargoTurret_Tailgate_L;
 			class CargoTurret_Tailgate_R;
 		};
@@ -97,7 +97,9 @@ class cfgVehicles {
 				animPeriod = 0.01;
 				displayName = "Hide Weapon 2";
 			};
+			class fordingkit_hide: fordingkit_hide {};
 		};
+		threat[] = {1, 0.3, 0.1};
 		viewDriverInExternal=1;
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
@@ -108,7 +110,11 @@ class cfgVehicles {
 				optics = 0;
 				selectionFireAnim = "muzzleflash";
 				weapons[]={"vurtual_mk19"};
-				magazines[] = {"32Rnd_40mm_G_belt","32Rnd_40mm_G_belt","32Rnd_40mm_G_belt","32Rnd_40mm_G_belt","32Rnd_40mm_G_belt","32Rnd_40mm_G_belt","32Rnd_40mm_G_belt","32Rnd_40mm_G_belt"};
+				magazines[] = {
+					"vurtual_48Rnd_40mm_G_belt","vurtual_48Rnd_40mm_G_belt","vurtual_48Rnd_40mm_G_belt",
+					"vurtual_48Rnd_40mm_G_belt","vurtual_48Rnd_40mm_G_belt","vurtual_48Rnd_40mm_G_belt",
+					"vurtual_48Rnd_40mm_G_belt"
+					};
 				soundServo[] = {"A3\sounds_f\dummysound", db-40, 1.0, 10};
 				gunnerAction = "vehicle_passenger_stand_2";
 				gunnerInAction = "gunner_standup01";
@@ -156,13 +162,43 @@ class cfgVehicles {
 					maxFov = 1.1;
 				};
 				class ViewGunner: ViewOptics {};
+				class HitPoints {
+					/*class HitMainGun {
+						isTurret=1;
+						isGun=1;
+						armor = 0.6;
+						material = -1;
+						name = "HitMainGun_point";
+						visual = "-";
+						passThrough=1;
+						ArmorComponent="HitMainGun";
+					};*/
+				};
 			};
 			class SideTurret: MainTurret
 			{
+				class HitPoints {
+					/*class HitSideGun {
+						isTurret=1;
+						isGun=1;
+						armor = 0.6;
+						material = -1;
+						name = "HitSideGun_point";
+						visual = "-";
+						passThrough=1;
+						ArmorComponent="HitSideGun";
+					};*/
+				};
 				gunnerName = "Gunner (M240)";
 				weapons[]={"vurtual_m240_veh"};
 				memoryPointGun="OtocHlaven_2";
-				magazines[]={"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box"};
+				magazines[]={
+					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
+					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
+					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
+					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
+					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
+					"vurtual_100rnd_762x51_box"};
 				soundServo[]={\ca\wheeled\Data\Sound\servo3, db-80, 1.1};
 				gunnerInAction = "passenger_low01";
 				gunnerRightHandAnimName = "";
@@ -201,9 +237,8 @@ class cfgVehicles {
 				class ViewOptics: ViewOptics {};
 				class ViewGunner: ViewOptics {};
 			};
-			class CargoTurret_Passenger_L: CargoTurret_Passenger_L {
+			class CargoTurret_Passenger_L: CargoTurret_Codriver {
 				gunnerName = "Left passenger";
-				gunnerDoor = "door_left2";
 				proxyIndex = 2;
 				maxTurn = 105;
 				minTurn = 30;
@@ -212,9 +247,8 @@ class cfgVehicles {
 				enabledByAnimationSource = "";
 				commanding=0;
 			};
-			class CargoTurret_Passenger_R: CargoTurret_Passenger_R {
+			class CargoTurret_Passenger_R: CargoTurret_Codriver {
 				gunnerName = "Right passenger";
-				gunnerDoor = "door_right2";
 				proxyIndex = 3;
 				memoryPointsGetInGunner = "pos rightseat";
 				memoryPointsGetInGunnerDir = "pos rightseat dir";
@@ -259,6 +293,7 @@ class cfgVehicles {
 	};
 	class vurtual_gmv_m2: vurtual_gmv {
 		scope = 2;
+		threat[] = {1, 0.1, 0.3};
 		displayName = "HMMWV M1113 GMV (M2)";
 		model = "\vurtual_m998_gmv\vurtual_gmv_m2.p3d";
 		class AnimationSources:AnimationSources {
@@ -266,11 +301,19 @@ class cfgVehicles {
 			class ReloadMagazine{source="reloadmagazine";weapon="vurtual_M2";};
 			class Revolving{source="revolving";weapon="vurtual_M2";};
 			class betseat_fold: bedseat_fold {};
+			class fordingkit_hide: fordingkit_hide {};
 		};
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
 				weapons[]={"vurtual_M2"};
-				magazines[] = {"100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow"};
+				magazines[] = {
+					"100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow",
+					"100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow",
+					"100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow",
+					"100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow",
+					"100Rnd_127x99_mag_Tracer_Yellow","100Rnd_127x99_mag_Tracer_Yellow",
+					"100Rnd_127x99_mag_Tracer_Yellow"
+					};
 				gunnerName = "Gunner (M2)";
 				discreteDistance[] = {100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1200, 1500};
 				discreteDistanceInitIndex = 2;
@@ -515,7 +558,7 @@ class CfgWeapons {
 			maxRange=1000;maxRangeProbab=0.01; //Rg 600;
 		};
 		sounds[]={"StandardSound"};
-		magazines[] = {"32Rnd_40mm_G_belt"};
+		magazines[] = {"vurtual_48Rnd_40mm_G_belt"};
 		magazineReloadTime = 10;
 		canLock = 0;
 	};
@@ -532,6 +575,12 @@ class cfgMagazines {
 		lastRoundsTracer = 4;
 		nameSound = "mgun";
 		mass = 40;
+	};
+	class 200Rnd_40mm_G_Belt;
+	class vurtual_48Rnd_40mm_G_belt: 200Rnd_40mm_G_Belt {
+		author = "vurtual";
+		scope = 1;
+		count = 48;
 	};
 };
 class cfgCloudlets {
