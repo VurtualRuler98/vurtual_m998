@@ -300,7 +300,7 @@ class cfgVehicles {
 			class ReloadAnim{source="reload";weapon="vurtual_M2";};
 			class ReloadMagazine{source="reloadmagazine";weapon="vurtual_M2";};
 			class Revolving{source="revolving";weapon="vurtual_M2";};
-			class betseat_fold: bedseat_fold {};
+			class bedseat_fold: bedseat_fold {};
 			class fordingkit_hide: fordingkit_hide {};
 		};
 		class Turrets: Turrets {
