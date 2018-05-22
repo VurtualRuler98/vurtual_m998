@@ -570,7 +570,7 @@ class cfgMagazines {
 		scope = 1;
 		count = 100;
 		displayname = "7.62x51mm 100Rnd belt";
-		ammo = "B_762x51_Tracer_Yellow";
+		ammo = "B_762x51_Tracer_Red";
 		tracersEvery = 5;
 		lastRoundsTracer = 4;
 		nameSound = "mgun";
