@@ -252,7 +252,12 @@ class cfgVehicles {
 			class GunnerTurnOut {
 				source = "door";
 				initPhase = 0;
-				animPeriod = 0.2;
+				animPeriod = 0.1;
+			};
+			class GunnerTurnAround {
+				source = "user";
+				initPhase = 0;
+				animPeriod = 2;
 			};
 			class Seats_A1: Seats_A1 {
 				displayName = "";
@@ -353,25 +358,25 @@ class cfgVehicles {
 					"vurtual_48Rnd_40mm_G_belt"
 					};
 				soundServo[] = {"A3\sounds_f\dummysound", db-40, 1.0, 10};
-				gunnerAction = "vehicle_passenger_stand_2";
+				gunnerAction = "gunner_standup01";
 				gunnerInAction = "gunner_standup01";
 				viewGunnerInExternal = 1;
 				castGunnerShadow = true;
 				memoryPointGun="OtocHlaven";
 				turretInfoType="RscOptics_Offroad_01";
-				gunnerRightHandAnimName = "OtocHlaven";
-				gunnerLeftHandAnimName = "OtocHlaven";
+				gunnerRightHandAnimName = "OtocHlavenGunner";
+				gunnerLeftHandAnimName = "OtocHlavenGunner";
 				class GunFire :WeaponCloudsMGun{interval = 0.01;};
 				commanding = 0;
-				personTurretAciton = "vehicle_passenger_stand_2";
+				personTurretAction = "vehicle_passenger_stand_2";
 				animationSourceHatch = "gunnerTurnOut";
 				primaryGunner = 1;
 				primaryObserver = 0;
 				maxOutElev=45;
 				allowLauncherOut=1;
 				minOutElev=-20;
-				minOutTurn=-121;
-				maxOutTurn=179;
+				minOutTurn=-90;
+				maxOutTurn=90;
 				outGunnerMayFire=0;
 				isPersonTurret=1;
 				gunnerName = "Gunner (Mk19)";
@@ -430,12 +435,12 @@ class cfgVehicles {
 				weapons[]={"vurtual_m240_veh"};
 				memoryPointGun="OtocHlaven_2";
 				magazines[]={
-					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
-					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
-					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
-					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
-					"vurtual_100rnd_762x51_box","vurtual_100rnd_762x51_box",
-					"vurtual_100rnd_762x51_box"};
+					"vurtual_200rnd_762x51_box",
+					"vurtual_200rnd_762x51_box",
+					"vurtual_200rnd_762x51_box",
+					"vurtual_200rnd_762x51_box",
+					"vurtual_200rnd_762x51_box",
+					"vurtual_200rnd_762x51_box"};
 				soundServo[]={\ca\wheeled\Data\Sound\servo3, db-80, 1.1};
 				gunnerInAction = "passenger_low01";
 				gunnerRightHandAnimName = "";
@@ -554,6 +559,11 @@ class cfgVehicles {
 			class Revolving{source="revolving";weapon="vurtual_M2";};
 			class bedseat_fold: bedseat_fold {};
 			class fordingkit_hide: fordingkit_hide {};
+			class door_hide: door_hide {};
+			class tailgate_hide: tailgate_hide {};
+			class rails_rear_hide: rails_rear_hide {};
+			class armor_tailgate_hide: armor_tailgate_hide {};
+			class armor_cargo_hide: armor_cargo_hide {};
 		};
 		class Turrets: Turrets {
 			class MainTurret: MainTurret {
@@ -620,7 +630,7 @@ class CfgWeapons {
 		soundContinuous = false;
 		aiDispersionCoefY=21; // 7
 		aiDispersionCoefX=21;
-		magazines[] = {"vurtual_100Rnd_762x51_box"};
+		magazines[] = {"vurtual_200Rnd_762x51_box"};
 		magazineReloadTime=5;
 		sound[] = {"",1,1};
 		canLock = 0;
@@ -817,11 +827,11 @@ class CfgWeapons {
 };
 class cfgMagazines {
 	class VehicleMagazine;
-	class vurtual_100Rnd_762x51_box: VehicleMagazine {
+	class vurtual_200Rnd_762x51_box: VehicleMagazine {
 		author = "vurtual";
 		scope = 1;
-		count = 100;
-		displayname = "7.62x51mm 100Rnd belt";
+		count = 200;
+		displayname = "7.62x51mm 200Rnd belt";
 		ammo = "B_762x51_Tracer_Red";
 		tracersEvery = 5;
 		lastRoundsTracer = 4;

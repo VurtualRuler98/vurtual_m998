@@ -39,7 +39,12 @@ _arr = [["window_codriver",0]];
 if (getNumber (configFile >> "CfgVehicles" >> (typeOf _veh) >> "vurtual_hmmwv_4door")==1) then {
 	_arr=_arr+[["window_left",1],["window_right",2]];
 };
-if (_veh isKindOf "vurtual_gmv") then { _arr=[["window_left",0],["window_right",1]]};
+/*if (_veh isKindOf "vurtual_gmv") then {
+	_veh addAction ["Turn",{
+		(_this select 0) animateSource ["GunnerTurnAround",abs ((_this select 0 animationSourcePhase "GunnerTurnAround")-1)];
+	},[],0,false,true,"","vehicle _this == _target && isTurnedOut _this && (_target turretUnit [0] == _this)"];*/
+	_arr=[["window_left",0],["window_right",1]]
+};
 {
 	_veh addAction ["Toggle FFV Mode",{
 		(_this select 0) animateDoor [(_this select 3 select 0),abs ((_this select 0 animationSourcePhase (_this select 3 select 0))-1)];
@@ -63,6 +68,9 @@ if (_veh isKindOf "vurtual_hmmwv_base") then {[_veh] call vurtual_m998_fnc_passe
 		if (local _veh) then {
 			if (_veh isKindOf "vurtual_gmv") then {
 				_veh call vurtual_m998_fnc_armor;
+				if ((_veh animationSourcePhase "GunnerTurnAround")!=0 && isNull (_veh turretUnit [0])) then {
+					_veh animateSource ["GunnerTurnAround",0,true];
+				};
 			};
 			_fordingSafe = "fordingkit_kill"; //disabled fordingkit_safe for now
 			_fordingKill = "fordingkit_kill";

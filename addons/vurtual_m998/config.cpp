@@ -61,6 +61,7 @@ class CfgFunctions {
 			class preinit {};
 			class explosion {};
 			class armor {};
+			class turnffv {};
 		};
 	};
 };
