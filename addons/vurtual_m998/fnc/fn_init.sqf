@@ -3,7 +3,6 @@ if ((!_par) || (isNull _veh) || !(_veh isKindOf "vurtual_hmmwv_base")) exitWith 
  if (local _veh) then {[_veh, """", [], true] call bis_fnc_initVehicle;};
 if (_veh getVariable ["hmmwv_init",false]) exitWith {false};
 _veh setVariable ["hmmwv_init",true];
-
 _veh setMass (getMass _veh)+(getNumber (configFile >> "CfgVehicles" >> (typeOf _veh) >> "vurtual_hmmwv_addweight"));
 
 if (is3DEN) exitWith {true};
@@ -40,11 +39,11 @@ _arr = [["window_codriver",0]];
 if (getNumber (configFile >> "CfgVehicles" >> (typeOf _veh) >> "vurtual_hmmwv_4door")==1) then {
 	_arr=_arr+[["window_left",1],["window_right",2]];
 };
-if (_veh isKindOf "vurtual_gmv") then { _arr=[]};
+if (_veh isKindOf "vurtual_gmv") then { _arr=[["window_left",0],["window_right",1]]};
 {
-	_veh addAction ["Open/Close Window",{
+	_veh addAction ["Toggle FFV Mode",{
 		(_this select 0) animateDoor [(_this select 3 select 0),abs ((_this select 0 animationSourcePhase (_this select 3 select 0))-1)];
-	},[_x select 0],1.5,false,true,"",format["(_target animationSourcePhase 'door_hide')==0 && (_target getCargoIndex _this)==%1",_x select 1]];
+	},[_x select 0],1.5,false,true,"",format["(_target getCargoIndex _this)==%1",_x select 1]];
 } forEach _arr;
 
 
@@ -62,6 +61,9 @@ if (_veh isKindOf "vurtual_hmmwv_base") then {[_veh] call vurtual_m998_fnc_passe
 	while {alive (_veh)} do {
 		sleep 0.1;
 		if (local _veh) then {
+			if (_veh isKindOf "vurtual_gmv") then {
+				_veh call vurtual_m998_fnc_armor;
+			};
 			_fordingSafe = "fordingkit_kill"; //disabled fordingkit_safe for now
 			_fordingKill = "fordingkit_kill";
 			_fordingExhaust = "fordingkit_exhaust";

@@ -59,6 +59,8 @@ class CfgFunctions {
 			class passenger {};
 			class cargobed {};
 			class preinit {};
+			class explosion {};
+			class armor {};
 		};
 	};
 };
@@ -106,16 +108,21 @@ class CfgMovesMaleSdr : CfgMovesBasic {
 		};
 	};
 };
-
 class CfgVehicles {
 	class LandVehicle;	// External class reference
 	
 	class Car : LandVehicle {
+		class AnimationSources;	// External class reference
 		class NewTurret;	// External class reference
 	};
 	
 	class Car_F : Car {
-		class AnimationSources;	// External class reference
+		class AnimationSources: AnimationSources {
+			class HitLFWheel;
+			class HitRFWheel;
+			class HitLF2Wheel;
+			class HitRF2Wheel;
+		};
 		class CargoTurret;
 		class Turrets {
 			class MainTurret : NewTurret {};
@@ -123,7 +130,8 @@ class CfgVehicles {
 		};
 		
 		class HitPoints {
-			class hitEngine;
+			class HitHull;
+			class HitFuel;
 			class HitLFWheel;	// External class reference
 			class HitLF2Wheel;	// External class reference
 			class HitRFWheel;	// External class reference
@@ -150,6 +158,27 @@ class CfgVehicles {
 		};
 		
 		class AnimationSources: AnimationSources {
+
+			class HitLFWheel: HitLFWheel {
+				source = "Hit";
+				hitpoint = "HitLFWheel";
+				raw = 1;
+			};
+			class HitRFWheel: HitRFWheel {
+				source = "Hit";
+				hitpoint = "HitRFWheel";
+				raw = 1;
+			};
+			class HitLF2Wheel: HitLF2Wheel {
+				source = "Hit";
+				hitpoint = "HitLF2Wheel";
+				raw = 1;
+			};
+			class HitRF2Wheel: HitRF2Wheel {
+				source = "Hit";
+				hitpoint = "HitRF2Wheel";
+				raw = 1;
+			};
 			class gmv_hide_radio {
 				source = "user";
 				initPhase = 1;
@@ -225,7 +254,13 @@ class CfgVehicles {
 				initPhase = 0;
 				animPeriod = 0.5;
 				//displayName = "Lower tailgate";
-				//onPhaseChanged = "(_this select 0) animateDoor ['tailgate_fold',(_this select 1),true]";
+				onPhaseChanged = "(_this select 0) animateDoor ['tailgate_fold',(_this select 1),true]";
+			};
+			class tailgate_hide {
+				source = "user";
+				initPhase = 0;
+				animPeriod = 0.1;
+				displayName = "Remove Tailgate";
 			};
 			class fordingkit_hide {
 				source = "user";
@@ -283,13 +318,13 @@ class CfgVehicles {
 		antiRollbarSpeedMin = 20;
 		antiRollbarSpeedMax = 50;
 		crewVulnerable = true;
-		crewCrashProtection = 0.85;
+		crewCrashProtection = 1;
 		weapons[] = {"TruckHorn2"};
 		magazines[] = {};
 		damperSize = 0.2;	// max. damper amplitude
 		damperForce = 1;	// larger number more stiffness dampers
 		damperDamping = 1;	// larger number less movement in dampers
-		armor = 30;
+		armor = 80;
 		armorStructural = 4;
 		turnCoef = 2.5;
 		steerAheadPlan = 0.2;
@@ -334,7 +369,7 @@ class CfgVehicles {
 		brakeIdleSpeed = 1.78;
 		fuelCapacity = 95;
 		
-	
+		explosionShielding = 0.8;
 		simulation = "carx";
 		dampersBumpCoef = 6.0;
 		differentialType = "all_limited";
@@ -358,6 +393,8 @@ class CfgVehicles {
 				mass = 30;
 				MOI = 12.8;
 				dampingRate = 0.1;
+				dampingRateDamaged = 0.5;
+				dampingRateDestroyed = 1000;
 				maxBrakeTorque = 10000;
 				maxHandBrakeTorque = 0;
 				suspTravelDirection[] = {0, -1, 0};
@@ -491,6 +528,7 @@ class CfgVehicles {
 				gunnerName = "Passenger (Tailgate Right)";
 			};
 		};
+		
 		driverDoor = "door_left";
 		cargoDoors[] = {"tailgate_fold"};
 		hiddenSelections[] = {"Camo", "Camo1", "Camo2", "Camo3", "Camo4","Camo5","CamoWheel"};
@@ -515,41 +553,66 @@ class CfgVehicles {
 				factions[] = {};
 			};
 		};
+		selectionDamage = "-";
 		class HitPoints : HitPoints {
+			class HitHull: HitHull {
+				armorComponent = "hit_hull";
+				name = "hit_hull_p";
+				depends = "Total-0.1";
+				armor = 999;
+				passThrough = 0;
+				explosionShielding = 0;
+				minimalHit = 0;
+				visual = "-";
+			};
+			class HitFuel: HitFuel {
+				passThrough = 0;
+				visual = "-";
+			};
 			class HitGlass1 : HitGlass1 {
 				armor = 0.1;
+				visual = "glass1";
 			};
 			
 			class HitGlass2 : HitGlass2 {
 				armor = 0.1;
+				visual = "glass2";
 			};
 			
 			class HitGlass3 : HitGlass3 {
 				armor = 0.1;
 				//convexComponent = "glass3_door";
-				visual = "glass3_door";
+				visual = "glass3";
 			};
 			
 			class HitGlass4 : HitGlass4 {
 				armor = 0.1;
 				//convexComponent = "glass4_door";
-				visual = "glass4_door";
+				visual = "glass4";
 			};
 			
-			class HitLFWheel : HitLFWheel {
-				armor = 0.8;
+			class HitLFWheel: HitLFWheel {
+				armor = -300;
+				explosionShielding = 4;
+				minimalHit = 0.0167;
 			};
 			
-			class HitLBWheel : HitLF2Wheel {
-				armor = 0.8;
+			class HitLF2Wheel: HitLF2Wheel {
+				armor = -300;
+				explosionShielding = 4;
+				minimalHit = 0.0167;
 			};
 			
-			class HitRFWheel : HitRFWheel {
-				armor = 0.8;
+			class HitRFWheel: HitRFWheel {
+				armor = -300;
+				explosionShielding = 4;
+				minimalHit = 0.0167;
 			};
 			
-			class HitRBWheel : HitRF2Wheel {
-				armor = 0.8;
+			class HitRF2Wheel: HitRF2Wheel {
+				armor = -300;
+				explosionShielding = 4;
+				minimalHit = 0.0167;
 			};
 			
 			class HitFuel {

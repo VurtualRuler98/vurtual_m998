@@ -19,13 +19,32 @@ class cfgVehicles {
 	class vurtual_hmmwv_base_a2: vurtual_hmmwv_base_a1 {
 		class animationSources;
 		class Turrets;
+		class HitPoints;
 	};
 	class vurtual_hmmwv_base_ecv: vurtual_hmmwv_base_a2 {
+		class EventHandlers;
 		class animationSources: animationSources {
 			class seats_A1;
 			class door_hide;
 			class bedseat_fold;
 			class fordingkit_hide;
+			class tailgate_hide;
+		};
+		class HitPoints: HitPoints {
+			class HitHull;
+			class HitEngine;
+			class HitBody;
+			class HitGlass1;
+			class HitGlass2;
+			class HitGlass3;
+			class HitGlass4;
+			class HitGlass5;
+			class HitGlass6;
+			class HitLFWheel;
+			class HitRFWheel;
+			class HitLF2Wheel;
+			class HitRF2Wheel;
+			class HitFuel;
 		};
 		class Turrets: Turrets {
 			class mainTurret;
@@ -35,6 +54,135 @@ class cfgVehicles {
 		};
 	};
 	class vurtual_gmv: vurtual_hmmwv_base_ecv {
+		class EventHandlers: EventHandlers {
+			Explosion = "_this call vurtual_m998_fnc_explosion";
+		};
+		crewExplosionProtection = 0.9999;
+		explosionShielding = 0.2; //scaled up by explosion handler
+		class HitPoints: HitPoints {
+			class HitLFWheel : HitLFWheel {
+				armorComponent = "wheel_1_1_hide";
+			};
+			
+			class HitLF2Wheel : HitLF2Wheel {
+				armorComponent = "wheel_1_2_hide";
+			};
+			
+			class HitRFWheel : HitRFWheel {
+				armorComponent = "wheel_2_1_hide";
+			};
+			
+			class HitRF2Wheel : HitRF2Wheel {
+				armorComponent = "wheel_2_2_hide";
+			};
+			class HitFuel: HitFuel {
+				armorComponent = "hit_fuel";
+				radius = 0.15;
+				explosionShielding = 0.1;
+			};
+			class HitFrame {
+				passThrough = 1;
+				name = "hit_frame_p";
+				visual = "dmg_frame";
+				explosionShielding = 0.5;
+				armor = -2400;
+				minimalHit = 0.005;
+				radius = 0.15;
+				armorComponent = "hit_frame";
+			};
+				
+			class HitBody: HitBody {
+				armor = -1200;
+				explosionShielding = 0.2;
+				passThrough = 0.2;
+				name = "karoserie";
+				armorComponent = "hit_body";
+				radius = 0.15;
+			};
+			/*
+			class HitBodyRear {
+				armor = -100;
+				explosionShielding = 1;
+				passThrough = 0.05;
+				armorComponent = "hit_body_rear";
+				name = "hit_body_rear_p";
+				visual = "dmg_body_rear";
+				radius = 0.15;
+			};
+			*/
+			class HitEngine: HitEngine {
+				radius = 0.01;
+				armor = -300;
+				visual = "dmg_engine";
+				armorComponent = "hit_engine";
+				name = "motor";
+			};
+			class HitGlass1: HitGlass1 {
+				armor = -250;
+				explosionShielding = 0.5;
+				armorComponent = "glass1";
+			};
+			class HitGlass2: HitGlass2 {
+				armor = -250;
+				explosionShielding = 0.5;
+				armorComponent = "glass2";
+			};
+			class HitGlass3: HitGlass3 {
+				armor = -250;
+				visual = "glass3";
+				explosionShielding = 0.5;
+				armorComponent = "glass3";
+			};
+			class HitGlass4: HitGlass4 {
+				armor = -250;
+				visual = "glass4";
+				explosionShielding = 0.5;
+				armorComponent = "glass4";
+			};
+			class HitGlass5: HitGlass5 {
+				armor = -250;
+				explosionShielding = 0.5;
+				visual = "glass5";
+				armorComponent = "glass5";
+			};
+			class HitGlass6: HitGlass6 {
+				armor = -250;
+				explosionShielding = 0.5;
+				visual = "glass6";
+				armorComponent = "glass6";
+			};
+			class HitARockerL {
+				armor = -300*4;
+				armorComponent = "armor_rocker_l";
+				name = "hit_armor_rocker_l_p";
+				minimalHit = 0.075/4;
+				passthrough = 0;
+				explosionShielding = 0.6;
+				radius = 0.15;
+				visual = "armor_rocker_l";
+			};
+			class HitARockerR: HitARockerL { armorComponent = "armor_rocker_r"; name = "hit_armor_rocker_r_p"; visual = "armor_rocker_r"; };
+			class HitAWindscreen: HitARockerL { armorComponent = "armor_windscreen"; name = "hit_armor_windscreen_p"; visual = "armor_windscreen"; };
+			class HitARoof: HitARockerL { armorComponent = "armor_roof"; name = "hit_armor_roof_p"; visual = "armor_roof"; };
+			class HitDoorL: HitARockerL { armorComponent = "armor_door_left"; name = "hit_door_left_p"; visual = "door_left"; };
+			class HitDoorR: HitARockerL { armorComponent = "armor_door_right"; name = "hit_door_right_p"; visual = "door_right"; };
+			class HitDoorL2: HitARockerL { armorComponent = "armor_door_left2"; name = "hit_door_left2_p"; visual = "door_left2"; };
+			class HitDoorR2: HitARockerL { armorComponent = "armor_door_right2"; name = "hit_door_right2_p"; visual = "door_right2"; };
+			class HitACargoL: HitARockerL { armorComponent = "armor_cargo_l"; name = "hit_armor_cargo_l_p"; visual = "armor_cargo_l"; };
+			class HitACargoR: HitARockerL { armorComponent = "armor_cargo_r"; name = "hit_armor_cargo_r_p"; visual = "armor_cargo_r"; };
+			class HitATailgate: HitARockerL { armorComponent = "armor_tailgate"; name = "hit_armor_tailgate_p"; visual = "dmg_tailgate"; };
+			class HitAUnderbody: HitARockerL { armorComponent = "armor_underbody"; name = "hit_armor_underbody_p"; visual = "armor_underbody"; };
+			class HitHood {
+				armor = -80*4;
+				armorComponent = "hit_hood";
+				radius = 0.15;
+				name = "hit_hood_p";
+				visual = "dmg_hood";
+				explosionShielding = 0.25;
+				passthrough = 0;
+				minimalHit = 0.001/4;
+			};
+		};
 		driverAction = "vurtual_m998_Driver";
 		driverInAction = "vurtual_m998_Driver";
 		hideProxyInCombat = 1;
@@ -59,16 +207,105 @@ class cfgVehicles {
 			class ReloadAnim2{source="reload";weapon="vurtual_m240_veh";};
 			class ReloadMagazine2{source="reloadmagazine";weapon="vurtual_m240_veh";};
 			class Revolving2{source="revolving";weapon="vurtual_m240_veh";};
+			class HitARockerL { source = "Hit"; raw = 1; hitpoint = "HitARockerL"; };
+			class HitARockerR: HitARockerL { hitpoint = "HitARockerR"; };
+			class HitAWindscreen: HitARockerL { hitpoint = "HitAWindscreen"; };
+			class HitARoof: HitARockerL { hitpoint = "HitARoof"; };
+			class HitDoorL: HitARockerL { hitpoint = "HitDoorL"; };
+			class HitDoorR: HitARockerL { hitpoint = "HitDoorR"; };
+			class HitDoorL2: HitARockerL { hitpoint = "HitDoorL2"; };
+			class HitDoorR2: HitARockerL { hitpoint = "HitDoorR2"; };
+			class HitACargoL: HitARockerL { hitpoint = "HitACargoL"; };
+			class HitACargoR: HitARockerL { hitpoint = "HitACargoR"; };
+			class HitATailgate: HitARockerL { hitpoint = "HitATailgate"; };
+			class HitAUnderbody: HitARockerL { hitpoint = "HitAUnderbody"; };
+			class HitHood {
+				source = "Hit";
+				hitpoint = "HitHood";
+				raw = 1;
+			};
+			class Door_Left2 {
+				source = "door";
+				initPhase = 0;
+				animPeriod = 0.4;
+			};
+			class Door_Right2 {
+				source = "door";
+				initPhase = 0;
+				animPeriod = 0.4;
+			};
+			class window_left {
+				source = "door";
+				initPhase = 0;
+				animPeriod = 0.5;
+			};
+			class window_right {
+				source = "door";
+				initPhase = 0;
+				animPeriod = 0.5;
+			};
+			class m240_arm_swing {
+				source = "door";
+				initPhase = 0;
+				animPeriod = 0.2;
+			};
 			class GunnerTurnOut {
 				source = "door";
 				initPhase = 0;
 				animPeriod = 0.2;
 			};
-			class Seats_A1: Seats_A1{
+			class Seats_A1: Seats_A1 {
 				displayName = "";
 			};
+			class armor_akit_hide {
+				source = "user";
+				initPhase = 0;
+				animPeriod = 0.1;
+				displayName = "Remove Underbody Armor";
+				mass = -300;
+			};
+			class armor_roof_hide {
+				source = "user";
+				initPhase = 0;
+				animPeriod = 0.1;
+				displayName = "Remove Roof Armor";
+				mass = -270;
+			};
+			class armor_cargo_hide {
+				source = "user";
+				initPhase = 0;
+				animPeriod = 0.1;
+				displayName = "Remove Cargo Armor";
+				forceAnimatePhase = 0;
+				forceAnimate[] = {"rails_rear_hide",1};
+				onPhaseChanged = "if ((_this select 1)==1) then {(_this select 0) animateSource ['armor_tailgate_hide',(_this select 1),true];};";
+				mass = -150;
+			};
+			class armor_tailgate_hide {
+				source = "user";
+				initPhase = 0;
+				animPeriod = 0.1;
+				displayName = "Remove Tailgate Armor";
+				forceAnimatePhase = 0;
+				forceAnimate[] = {"tailgate_hide",1,"armor_cargo_hide",0,"rails_rear_hide",1};
+				mass = -130;
+
+			};
+			class rails_rear_hide {
+				source = "user";
+				initPhase = 1;
+				animPeriod = 0.1;
+				displayName = "Remove Rear Rails";
+				forceAnimatePhase = 0;
+				forceAnimate[] = {"armor_cargo_hide",1,"armor_tailgate_hide",1};
+			};
+			class tailgate_hide: tailgate_hide {
+				forceAnimatePhase = 0;
+				initPhase = 1;
+				forceAnimate[] = {"armor_tailgate_hide",1};
+			};
 			class Door_Hide: Door_Hide {
-				displayName = "";
+				mass = -360;
 			};
 			class bedseat_fold: bedseat_fold {
 				lockCargo[] = {2,3,4,5};
@@ -81,7 +318,7 @@ class cfgVehicles {
 			};
 			class gmv_hide_bags {
 				source = "user";
-				initPhase = 0;
+				initPhase = 1;
 				animPeriod = 0.01;
 				displayName = "Hide bags";
 			};
@@ -202,11 +439,12 @@ class cfgVehicles {
 				soundServo[]={\ca\wheeled\Data\Sound\servo3, db-80, 1.1};
 				gunnerInAction = "passenger_low01";
 				gunnerRightHandAnimName = "";
+				gunnerDoor = "door_right";
 				gunnerLeftHandAnimName = "";
 				selectionFireAnim = "muzzleflash2";
 				gunnerAction = "passenger_inside_2";
 				personTurretAction = "passenger_inside_2";
-				animationSourceHatch = "";
+				animationSourceHatch = "m240_arm_swing";
 				commanding = 1;
 				primaryGunner = 0;
 				minOutElev=-45;
@@ -218,7 +456,7 @@ class cfgVehicles {
 				proxyType = "CPCargo";
 				proxyIndex = 1;
 				minElev = -18; maxElev = +20;
-				minTurn=-65; maxTurn=35;
+				minTurn=-170; maxTurn=0;
 				gunBeg = "usti hlavne_2";
 				gunEnd = "konec hlavne_2";
 				body = "SideTurret";
@@ -239,25 +477,33 @@ class cfgVehicles {
 			};
 			class CargoTurret_Passenger_L: CargoTurret_Codriver {
 				gunnerName = "Left passenger";
+				gunnerDoor = "door_left2";
 				proxyIndex = 2;
 				maxTurn = 105;
 				minTurn = 30;
+				LODTurnedOut = 1200;
+				LODTurnedIn= 1200;
 				memoryPointsGetInGunner = "pos leftseat";
 				memoryPointsGetInGunnerDir = "pos leftseat dir";
-				enabledByAnimationSource = "";
+				enabledByAnimationSource = "window_left";
 				commanding=0;
 			};
 			class CargoTurret_Passenger_R: CargoTurret_Codriver {
 				gunnerName = "Right passenger";
+				gunnerDoor = "door_right2";
 				proxyIndex = 3;
+				LODTurnedOut = 1200;
+				LODTurnedIn= 1200;
 				memoryPointsGetInGunner = "pos rightseat";
 				memoryPointsGetInGunnerDir = "pos rightseat dir";
-				enabledByAnimationSource = "";
+				enabledByAnimationSource = "window_right";
 				commanding=0;
 			};
 			class CargoTurret_Tailgate_L_B: CargoTurret_Tailgate_L {
 				gunnerName = "Passenger (Bedside Left)";
 				proxyIndex = 4;
+				LODTurnedOut = 1200;
+				LODTurnedIn= 1200;
 				memoryPointsGetInGunner = "pos leftside";
 				memoryPointsGetInGunnerDir = "pos leftside dir";
 				gunnerCompartments = "Compartment1";
@@ -270,6 +516,8 @@ class cfgVehicles {
 			class CargoTurret_Tailgate_R_B: CargoTurret_Tailgate_R {
 				gunnerName = "Passenger (Bedside right)";
 				proxyIndex = 5;
+				LODTurnedOut = 1200;
+				LODTurnedIn= 1200;
 				memoryPointsGetInGunner = "pos rightside";
 				memoryPointsGetInGunnerDir = "pos rightside dir";
 				gunnerCompartments = "Compartment1";
@@ -282,11 +530,15 @@ class cfgVehicles {
 			class CargoTurret_Tailgate_L: CargoTurret_Tailgate_L {
 				proxyIndex = 6;
 				commanding=0;
+				LODTurnedOut = 1200;
+				LODTurnedIn= 1200;
 				gunnerCompartments = "Compartment1";
 			};
 			class CargoTurret_Tailgate_R: CargoTurret_Tailgate_R {
 				proxyIndex = 7;
 				commanding=0;
+				LODTurnedOut = 1200;
+				LODTurnedIn= 1200;
 				gunnerCompartments = "Compartment1";
 			};
 		};
