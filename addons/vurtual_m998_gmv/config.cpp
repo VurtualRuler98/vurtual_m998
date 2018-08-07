@@ -2,15 +2,18 @@ class CfgPatches {
 	class vurtual_m998_gmv {
 		units[] = {
 		"vurtual_gmv",
-		"vurtual_gmv_m2"
+		"vurtual_gmv_m2",
+		"vurtual_gmv_m134",
+		"vurtual_gmv_gau19"
 		};
 		weapons[] = {
 			"vurtual_mk19",
-			"vurtual_m240_veh"
+			"vurtual_m240_veh",
+			"vurtual_m134"
 		};
 		requiredVersion = 0.1;
 		author = "vurtual";
-		requiredAddons[] = {"cba_main","A3_Soft_F","vurtual_m998"};
+		requiredAddons[] = {"cba_main","A3_Soft_F","vurtual_m998","a3_weapons_f"};
 	};
 };
 class WeaponCloudsMGun;
@@ -282,7 +285,7 @@ class cfgVehicles {
 				animPeriod = 0.1;
 				displayName = "Remove Cargo Armor";
 				forceAnimatePhase = 0;
-				forceAnimate[] = {"rails_rear_hide",1};
+				forceAnimate[] = {"rails_base_hide",0};
 				onPhaseChanged = "if ((_this select 1)==1) then {(_this select 0) animateSource ['armor_tailgate_hide',(_this select 1),true];};";
 				mass = -150;
 			};
@@ -292,16 +295,16 @@ class cfgVehicles {
 				animPeriod = 0.1;
 				displayName = "Remove Tailgate Armor";
 				forceAnimatePhase = 0;
-				forceAnimate[] = {"tailgate_hide",1,"armor_cargo_hide",0,"rails_rear_hide",1};
+				forceAnimate[] = {"tailgate_hide",1,"armor_cargo_hide",0,"rails_base_hide",0};
 				mass = -130;
 
 			};
-			class rails_rear_hide {
+			class rails_base_hide {
 				source = "user";
-				initPhase = 1;
+				initPhase = 0;
 				animPeriod = 0.1;
 				displayName = "Remove Rear Rails";
-				forceAnimatePhase = 0;
+				forceAnimatePhase = 1;
 				forceAnimate[] = {"armor_cargo_hide",1,"armor_tailgate_hide",1};
 			};
 			class tailgate_hide: tailgate_hide {
@@ -311,6 +314,12 @@ class cfgVehicles {
 			};
 			class Door_Hide: Door_Hide {
 				mass = -360;
+			};
+			class tailgate_rack_hide {
+				source = "user";
+				initPhase = 1;
+				animPeriod = 0.01;
+				displayName = "Remove tailgate rack";
 			};
 			class bedseat_fold: bedseat_fold {
 				lockCargo[] = {2,3,4,5};
@@ -461,7 +470,7 @@ class cfgVehicles {
 				proxyType = "CPCargo";
 				proxyIndex = 1;
 				minElev = -18; maxElev = +20;
-				minTurn=-170; maxTurn=0;
+				minTurn=-183; maxTurn=20;
 				gunBeg = "usti hlavne_2";
 				gunEnd = "konec hlavne_2";
 				body = "SideTurret";
@@ -548,6 +557,80 @@ class cfgVehicles {
 			};
 		};
 	};
+	class vurtual_gmv_gau19: vurtual_gmv {
+		scope = 2;
+		threat[] = {1, 0.3, 0.5};
+		displayName = "HMMWV M1113 GMV (GAU-19)";
+		model = "\vurtual_m998_gmv\vurtual_gmv_gau19.p3d";
+		class Turrets: Turrets {
+			class MainTurret: MainTurret {
+				gunBeg = "muzzle";	// endpoint of the gun
+				gunEnd = "chamber";	// chamber of the gun
+				weapons[]={"vurtual_GAU19"};
+				magazines[] = {"vurtual_900Rnd_127x99_belt","vurtual_900Rnd_127x99_belt","vurtual_900Rnd_127x99_belt"};
+				gunnerName = "Gunner (GAU-19)";
+				discreteDistance[] = {300};
+				discreteDistanceInitIndex = 0;
+			};
+			class SideTurret: SideTurret {};
+			class CargoTurret_Passenger_L: CargoTurret_Passenger_L {};
+			class CargoTurret_Passenger_R: CargoTurret_Passenger_R {};
+			class CargoTurret_Tailgate_L: CargoTurret_Tailgate_L {};
+			class CargoTurret_Tailgate_R: CargoTurret_Tailgate_R {};
+			class CargoTurret_Tailgate_L_B: CargoTurret_Tailgate_L_B {};
+			class CargoTurret_Tailgate_R_B: CargoTurret_Tailgate_R_B {};
+		};
+		class AnimationSources: AnimationSources {
+			class Gatling {
+				source = "revolving";
+				weapon = "vurtual_gau19";
+			};
+			class bedseat_fold: bedseat_fold {};
+			class fordingkit_hide: fordingkit_hide {};
+			class door_hide: door_hide {};
+			class tailgate_hide: tailgate_hide {};
+			class rails_base_hide: rails_base_hide {};
+			class armor_tailgate_hide: armor_tailgate_hide {};
+			class armor_cargo_hide: armor_cargo_hide {};
+		};
+	};
+	class vurtual_gmv_m134: vurtual_gmv {
+		scope = 2;
+		threat[] = {1, 0.1, 0.3};
+		displayName = "HMMWV M1113 GMV (M134)";
+		model = "\vurtual_m998_gmv\vurtual_gmv_m134.p3d";
+		class AnimationSources: AnimationSources {
+			class Gatling {
+				source = "revolving";
+				weapon = "vurtual_m134";
+			};
+			class bedseat_fold: bedseat_fold {};
+			class fordingkit_hide: fordingkit_hide {};
+			class door_hide: door_hide {};
+			class tailgate_hide: tailgate_hide {};
+			class rails_base_hide: rails_base_hide {};
+			class armor_tailgate_hide: armor_tailgate_hide {};
+			class armor_cargo_hide: armor_cargo_hide {};
+		};
+		class Turrets: Turrets {
+			class MainTurret: MainTurret {
+				gunBeg = "muzzle";	// endpoint of the gun
+				gunEnd = "chamber";	// chamber of the gun
+				weapons[]={"vurtual_M134"};
+				magazines[] = {"vurtual_2000Rnd_762x51_belt","vurtual_2000Rnd_762x51_belt","vurtual_2000Rnd_762x51_belt"};
+				gunnerName = "Gunner (M134)";
+				discreteDistance[] = {300};
+				discreteDistanceInitIndex = 0;
+			};
+			class SideTurret: SideTurret {};
+			class CargoTurret_Passenger_L: CargoTurret_Passenger_L {};
+			class CargoTurret_Passenger_R: CargoTurret_Passenger_R {};
+			class CargoTurret_Tailgate_L: CargoTurret_Tailgate_L {};
+			class CargoTurret_Tailgate_R: CargoTurret_Tailgate_R {};
+			class CargoTurret_Tailgate_L_B: CargoTurret_Tailgate_L_B {};
+			class CargoTurret_Tailgate_R_B: CargoTurret_Tailgate_R_B {};
+		};
+	};
 	class vurtual_gmv_m2: vurtual_gmv {
 		scope = 2;
 		threat[] = {1, 0.1, 0.3};
@@ -561,7 +644,7 @@ class cfgVehicles {
 			class fordingkit_hide: fordingkit_hide {};
 			class door_hide: door_hide {};
 			class tailgate_hide: tailgate_hide {};
-			class rails_rear_hide: rails_rear_hide {};
+			class rails_base_hide: rails_base_hide {};
 			class armor_tailgate_hide: armor_tailgate_hide {};
 			class armor_cargo_hide: armor_cargo_hide {};
 		};
@@ -703,6 +786,73 @@ class CfgWeapons {
 			maxRange=800;maxRangeProbab=0.01; //Rg 600;
 		};
 	};
+	class MGunCore;
+	class m134_minigun: MGunCore {
+		class HighROF;
+		class close;
+		class short;
+		class medium;
+		class far;
+	};
+	class vurtual_m134: m134_minigun {
+		scope = 1;
+		magazines[] = {"vurtual_2000Rnd_762x51_belt"};
+		displayName = "M134";
+		ballisticsComputer = 2;
+		modes[] = {"HighROF","close","short","medium","far"};
+		class HighROF: HighROF {
+			displayName = "M134";
+			reloadTime = 0.03;
+		};
+		magazineReloadTime = 15;
+	};
+	class vurtual_gau19: vurtual_m134 {
+		scope = 1;
+		magazines[] = {"vurtual_900Rnd_127x99_belt"};
+		displayname = "GAU-19";
+		class HighROF: HighROF {
+			soundContinuous = 0;
+			reloadTime = 0.046;
+			displayName = "GAU-19";
+			class StandardSound {
+				begin1[] = {"A3\Sounds_F_epc\weapons\cas_02_cannon",2.51189,1,1500,[2,36879]};
+				soundBegin[] = {"begin1",1};
+			};
+		};
+		class close: close {
+			reloadTime = 0.046;
+			soundContinuous = 0;
+			class StandardSound {
+				begin1[] = {"A3\Sounds_F_epc\weapons\cas_02_cannon",2.51189,1,1500,[2,36879]};
+				soundBegin[] = {"begin1",1};
+			};
+		};
+		class short: short {
+			reloadTime = 0.046;
+			soundContinuous = 0;
+			class StandardSound {
+				begin1[] = {"A3\Sounds_F_epc\weapons\cas_02_cannon",2.51189,1,1500,[2,36879]};
+				soundBegin[] = {"begin1",1};
+			};
+		};
+		class medium: medium {
+			reloadTime = 0.046;
+			soundContinuous = 0;
+			class StandardSound {
+				begin1[] = {"A3\Sounds_F_epc\weapons\cas_02_cannon",2.51189,1,1500,[2,36879]};
+				soundBegin[] = {"begin1",1};
+			};
+		};
+		class far: far {
+			reloadTime = 0.046;
+			soundContinuous = 0;
+			class StandardSound {
+				begin1[] = {"A3\Sounds_F_epc\weapons\cas_02_cannon",2.51189,1,1500,[2,36879]};
+				soundBegin[] = {"begin1",1};
+			};
+		};
+		magazineReloadTime = 20;
+	};
 	class HMG_M2;
 	class vurtual_M2: HMG_M2 {
 		displayName = "M2";
@@ -831,12 +981,20 @@ class cfgMagazines {
 		author = "vurtual";
 		scope = 1;
 		count = 200;
-		displayname = "7.62x51mm 200Rnd belt";
+		displayName = "7.62x51mm 200Rnd belt";
 		ammo = "B_762x51_Tracer_Red";
 		tracersEvery = 5;
 		lastRoundsTracer = 4;
 		nameSound = "mgun";
 		mass = 40;
+	};
+	class vurtual_2000Rnd_762x51_belt: vurtual_200Rnd_762x51_box {
+		count = 2000;
+		displayName = "7.62x51mm 2000Rnd belt";
+	};
+	class 500Rnd_127x99_mag_tracer_red;
+	class vurtual_900Rnd_127x99_belt: 500Rnd_127x99_mag_tracer_red {
+		count = 900;
 	};
 	class 200Rnd_40mm_G_Belt;
 	class vurtual_48Rnd_40mm_G_belt: 200Rnd_40mm_G_Belt {
