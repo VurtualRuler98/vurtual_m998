@@ -1,4 +1,4 @@
 tga/*.tga
-addons/a3/*.rvmat
-addons/a3/*.bisurf
+addons/a3/*
 *.blend1
+ignore_*.blend
