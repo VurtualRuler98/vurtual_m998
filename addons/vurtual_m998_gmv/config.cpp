@@ -286,7 +286,7 @@ class cfgVehicles {
 				displayName = "Remove Cargo Armor";
 				forceAnimatePhase = 0;
 				forceAnimate[] = {"rails_base_hide",0};
-				onPhaseChanged = "(_this select 0) animateSource ['armor_cargo_hide',(_this select 1)]; if ((_this select 1)==1) then {(_this select 0) animateSource ['armor_tailgate_hide',(_this select 1),true];};";
+				onPhaseChanged = "(_this select 0) animateSource ['armor_cargo_hide',(_this select 1),true]; if ((_this select 1)==1) then {(_this select 0) animateSource ['armor_tailgate_hide',(_this select 1),true];};";
 				mass = -150;
 			};
 			class armor_tailgate_hide {
