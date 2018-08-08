@@ -204,6 +204,11 @@ class cfgVehicles {
 		cargoDoors[] = {"tailgate_fold"};
 		class AnimationSources:AnimationSources
 		{
+			class GunnerHandAdjust {
+				source = "user";
+				initPhase = 1;
+				animPeriod = 0.1;
+			};
 			class ReloadAnim{source="reload";weapon="vurtual_mk19";};
 			class ReloadMagazine{source="reloadmagazine";weapon="vurtual_mk19";};
 			class Revolving{source="revolving";weapon="vurtual_mk19";};
@@ -261,6 +266,7 @@ class cfgVehicles {
 				source = "user";
 				initPhase = 0;
 				animPeriod = 2;
+				sourceAddress = "loop";
 			};
 			class Seats_A1: Seats_A1 {
 				displayName = "";
@@ -373,8 +379,8 @@ class cfgVehicles {
 				castGunnerShadow = true;
 				memoryPointGun="OtocHlaven";
 				turretInfoType="RscOptics_Offroad_01";
-				gunnerRightHandAnimName = "OtocHlavenGunner";
-				gunnerLeftHandAnimName = "OtocHlavenGunner";
+				gunnerRightHandAnimName = "OtocHlavenGunnerHand";
+				gunnerLeftHandAnimName = "OtocHlavenGunnerHand";
 				class GunFire :WeaponCloudsMGun{interval = 0.01;};
 				commanding = 0;
 				personTurretAction = "vehicle_passenger_stand_2";
@@ -567,7 +573,7 @@ class cfgVehicles {
 				gunBeg = "muzzle";	// endpoint of the gun
 				gunEnd = "chamber";	// chamber of the gun
 				weapons[]={"vurtual_GAU19"};
-				magazines[] = {"vurtual_900Rnd_127x99_belt","vurtual_900Rnd_127x99_belt","vurtual_900Rnd_127x99_belt"};
+				magazines[] = {"vurtual_900Rnd_127x99_belt"};
 				gunnerName = "Gunner (GAU-19)";
 				discreteDistance[] = {300};
 				discreteDistanceInitIndex = 0;
@@ -617,7 +623,7 @@ class cfgVehicles {
 				gunBeg = "muzzle";	// endpoint of the gun
 				gunEnd = "chamber";	// chamber of the gun
 				weapons[]={"vurtual_M134"};
-				magazines[] = {"vurtual_2000Rnd_762x51_belt","vurtual_2000Rnd_762x51_belt","vurtual_2000Rnd_762x51_belt"};
+				magazines[] = {"vurtual_2000Rnd_762x51_belt"};
 				gunnerName = "Gunner (M134)";
 				discreteDistance[] = {300};
 				discreteDistanceInitIndex = 0;
